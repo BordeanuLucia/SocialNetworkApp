@@ -206,6 +206,7 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
                     }
                 }
             }
+            textFieldMessage.clear();
         }
     }
 
@@ -267,6 +268,29 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
             dialogStage.setScene(scene);
             FriendshipRequestController friendshipRequestController = loader.getController();
             friendshipRequestController.setService(userService, friendshipService, dialogStage, user);
+            dialogStage.show();
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleShowReports(){
+        try{
+            //setup
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/sceneBuilder/reports.fxml"));
+            AnchorPane root = (AnchorPane)loader.load();
+
+            //stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Reports");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+            ReportsController reportsController = loader.getController();
+            reportsController.setService(userService, friendshipService, messageService, dialogStage, currentUser);
             dialogStage.show();
 
         }catch(IOException e){
