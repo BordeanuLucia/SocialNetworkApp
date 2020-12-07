@@ -163,6 +163,13 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
 
     @FXML
     private void handleUnsendRequest(){
+        FriendshipDTO dto = tableView3.getSelectionModel().getSelectedItem();
+        if(dto != null){
+            friendshipService.deleteRequest(dto.getUser());
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION,"Unsend","Request unsent");
+        }else {
+            MessageAlert.showErrorMessage(null, "A user must be selected");
+        }
     }
 
     @FXML

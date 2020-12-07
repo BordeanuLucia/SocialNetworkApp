@@ -186,6 +186,17 @@ public class PrietenieService implements Observable<MessageTaskChangeEvent> {
         notifyObservers(new MessageTaskChangeEvent(ChangeEventType.DELETE, null));
     }
 
+    public void deleteRequest(Utilizator user){
+        for(FriendRequest fr : repoRequest.findAll()){
+            if(fr.getId().getLeft() == currentUser.getId() && fr.getId().getRight() == user.getId() && fr.getStatus().equals(Status.PENDING)){
+                FriendRequest aux = fr;
+                aux.setStatus(Status.REJECTED);
+                repoRequest.update(aux);
+                notifyObservers(new MessageTaskChangeEvent(ChangeEventType.UPDATE, null));
+                break;
+            }
+        }
+    }
 
     /**
      * finds the number of communities
