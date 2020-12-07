@@ -8,11 +8,12 @@
 
 <AnchorPane prefHeight="240.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.ReportsController">
    <children>
-      <DatePicker fx:id="datePicker1" layoutX="121.0" layoutY="54.0" prefHeight="30.0" prefWidth="178.0" />
-      <DatePicker fx:id="datePicker2" layoutX="14.0" layoutY="139.0" prefHeight="30.0" prefWidth="178.0" />
-      <DatePicker fx:id="datePicker3" layoutX="210.0" layoutY="139.0" prefHeight="30.0" prefWidth="178.0" />
+      <DatePicker fx:id="datePicker2" layoutX="210.0" layoutY="56.0" prefHeight="30.0" prefWidth="178.0" />
+      <DatePicker fx:id="datePicker3" layoutX="14.0" layoutY="139.0" prefHeight="30.0" prefWidth="178.0" />
+      <DatePicker fx:id="datePicker4" layoutX="210.0" layoutY="139.0" prefHeight="30.0" prefWidth="178.0" />
       <ComboBox fx:id="comboBox" layoutX="141.0" layoutY="186.0" prefWidth="150.0" />
       <Button fx:id="raport1Button" layoutX="423.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleReport1" prefHeight="30.0" prefWidth="72.0" text="Raport 1" />
       <Button fx:id="raport2Button" layoutX="423.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleReport2" prefHeight="30.0" prefWidth="72.0" text="Raport 2" />
+      <DatePicker fx:id="datePicker1" layoutX="14.0" layoutY="56.0" prefHeight="30.0" prefWidth="178.0" />
    </children>
 </AnchorPane>

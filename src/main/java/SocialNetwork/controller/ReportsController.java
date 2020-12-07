@@ -1,6 +1,8 @@
 package SocialNetwork.controller;
 
 import SocialNetwork.domain.FriendshipDTO;
+import SocialNetwork.domain.Message;
+import SocialNetwork.domain.Prietenie;
 import SocialNetwork.domain.Utilizator;
 import SocialNetwork.service.MessageService;
 import SocialNetwork.service.PrietenieService;
@@ -8,14 +10,18 @@ import SocialNetwork.service.UtilizatorService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
+import utils.Constants;
 import utils.events.MessageTaskChangeEvent;
 import utils.observer.Observer;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import java.util.List;
 
 public class ReportsController implements Observer<MessageTaskChangeEvent> {
     Stage dialogStage;
@@ -29,6 +35,8 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
     DatePicker datePicker2;
     @FXML
     DatePicker datePicker3;
+    @FXML
+    DatePicker datePicker4;
     @FXML
     ComboBox<Utilizator> comboBox;
     ObservableList<Utilizator> model = FXCollections.observableArrayList();
@@ -54,7 +62,32 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
 
     @FXML
     public void handleReport1(){
-
+        String text = "";
+        LocalDate localDate1 = datePicker1.getValue();
+        LocalDate localDate2 = datePicker1.getValue();
+        if(localDate1 != null && localDate2 != null) {
+            List<FriendshipDTO> prietenii = friendshipService.friendsBetweenDates(localDate1, localDate2)
+                    .stream().map(x->{if(x.getId().getRight() == currentUser.getId()) return new FriendshipDTO(userService.findOne(x.getId().getLeft()),x.getDate());
+                                        else return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
+                    .collect(Collectors.toList());
+            if(prietenii.size() != 0){
+                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                        .concat(" ").concat(currentUser.toString()).concat(" s-a imprietenit cu:\n");
+                for(FriendshipDTO friendshipDTO : prietenii){
+                    text.concat(friendshipDTO.getDate()).concat(" ").concat(friendshipDTO.getUsername()).concat("\n");
+                }
+            }
+            List<Message> mesaje = messageService.messagesBetweenDates(localDate1,localDate2);
+            if(mesaje.size() != 0 ){
+                text.concat("\n").concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                        .concat(" ").concat(currentUser.toString()).concat(" a primit urmatoarele mesaje:\n");
+                for(Message message : mesaje){
+                    text.concat(message.getDate().format(Constants.DATE_TIME_FORMATTER)).concat(" ").concat(message.getFrom().toString()).concat(": ").concat(message.getMessage()).concat("\n");
+                }
+            }
+        }else{
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A date must be selected");
+        }
     }
 
     @FXML

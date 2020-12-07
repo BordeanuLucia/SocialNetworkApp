@@ -9,6 +9,7 @@ import utils.events.MessageTaskChangeEvent;
 import utils.observer.Observable;
 import utils.observer.Observer;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -66,6 +67,12 @@ public class PrietenieService implements Observable<MessageTaskChangeEvent> {
         return list;
     }
 
+    public List<Prietenie> friendsBetweenDates(LocalDate date1, LocalDate date2){
+        List<Prietenie> prietenieList = StreamSupport.stream(this.getAllFriendships().spliterator(), false)
+                .filter(x->{if((x.getId().getLeft().equals(currentUser.getId()) || x.getId().getRight().equals(currentUser.getId())) && x.getDate().toLocalDate().isAfter(date1) && x.getDate().toLocalDate().isBefore(date2)) return true; return false;})
+                .collect(Collectors.toList());
+        return prietenieList;
+    }
 
     /**
      *

@@ -8,6 +8,7 @@ import utils.events.MessageTaskChangeEvent;
 import utils.observer.Observable;
 import utils.observer.Observer;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -144,6 +145,20 @@ public class MessageService implements Observable<MessageTaskChangeEvent> {
                 .filter(x->{if((x.getFrom().equals(currentUser) && x.getTo().contains(friend)) || (x.getFrom().equals(friend) && x.getTo().contains(currentUser))) return true; return false;})
                 .collect(Collectors.toList());
         return messages;
+    }
+
+    public List<Message> messagesBetweenDatesUser(LocalDate date1, LocalDate date2, Long id){
+        List<Message> list = this.showConversation(id).stream()
+                .filter(x->{if(x.getDate().toLocalDate().isAfter(date1) && x.getDate().toLocalDate().isBefore(date2)) return true; return false;})
+                .collect(Collectors.toList());
+        return list;
+    }
+
+    public List<Message> messagesBetweenDates(LocalDate date1, LocalDate date2){
+        List<Message> list = this.findAll().stream()
+                .filter(x->{if(x.getDate().toLocalDate().isAfter(date1) && x.getDate().toLocalDate().isBefore(date2) && x.getTo().contains(currentUser)) return true; return false;})
+                .collect(Collectors.toList());
+        return list;
     }
 
     public List<Message> findAll(){
