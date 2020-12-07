@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import utils.events.MessageTaskChangeEvent;
@@ -46,15 +45,15 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     @FXML
     TextField textFieldUsername;
     @FXML
-    TextField message;
-    @FXML
-    TextField textFieldMessages;
+    TextField textFieldUserMessage;
     @FXML
     TableView<Utilizator> tableView4;
     @FXML
     TableColumn<Utilizator,String> tableColumnUsername4;
     @FXML
     ListView<MessageDTO> listView;
+    @FXML
+    TextField textFieldMessage;
 
 
     private UtilizatorService userService;
@@ -98,7 +97,7 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         tableView4.setItems(model4);
         listView.setItems(model5);
         textFieldUsername.textProperty().addListener(x->handleFilter1());
-        textFieldMessages.textProperty().addListener(x->handleFilter2());
+        textFieldUserMessage.textProperty().addListener(x->handleFilter2());
     }
 
     private void initModel1() {
@@ -145,11 +144,29 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     }
 
     private void initModel4(){
+        List<Utilizator> users = StreamSupport.stream(userService.getAll().spliterator(),false).collect(Collectors.toList());
+        model4.setAll(users);
     }
 
+    private Utilizator selectedUserForConversation = null;
     @FXML
     private void showConversation(){
-
+        Utilizator selectedUser = tableView4.getSelectionModel().getSelectedItem();
+        if(selectedUser == null)
+            selectedUser = selectedUserForConversation;
+        else
+            selectedUserForConversation = selectedUser;
+        if(selectedUser != null){
+            List<MessageDTO> messages = messageService.findAll().stream()
+                    .filter(x->{if((x.getFrom().equals(currentUser) && x.getTo().contains(selectedUserForConversation)) || (x.getFrom().equals(selectedUserForConversation) && x.getTo().contains(currentUser))) return true; return false;})
+                    .map(x->{ String reply = ""; if(x.getReply() != -1l) reply = messageService.findOne(x.getReply()).getMessage();
+                        if(x.getFrom().equals(currentUser)) return new MessageDTO(x.getId(), currentUser,x.getMessage(),reply);
+                        else return new MessageDTO(x.getId(), selectedUserForConversation, x.getMessage(), reply);
+                    }).collect(Collectors.toList());
+            model5.setAll(messages);
+        }else {
+//           MessageAlert.showErrorMessage(null, "A user must be selected");
+        }
     }
 
     private void handleFilter1() {
@@ -163,7 +180,33 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     }
 
     private void handleFilter2(){
+        Predicate<Utilizator> namePredicate = x->x.getUsername().startsWith(textFieldUserMessage.getText());
+        Predicate<Utilizator> lastPredicate = x->x.getUsername().contains(" "+ textFieldUserMessage.getText());
+        model4.setAll(StreamSupport.stream(userService.getAll().spliterator(),false).filter(namePredicate.or(lastPredicate)).collect(Collectors.toList()));
+    }
 
+    @FXML
+    public void handleSendMessage(){
+        String message = textFieldMessage.getText();
+        MessageDTO selectedMessage = listView.getSelectionModel().getSelectedItem();
+        message.replace(" ","");
+        if(!message.equals("")) {
+            if (selectedUserForConversation != null) {
+                if (selectedMessage != null) {
+                    try {
+                        messageService.addReply(selectedMessage.getId(), message);
+                    } catch (ServiceException e) {
+                        MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", e.toString());
+                    }
+                } else {
+                    try {
+                        messageService.addMessage(selectedUserForConversation.getId().toString(), message);
+                    } catch (ServiceException e) {
+                        MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", e.toString());
+                    }
+                }
+            }
+        }
     }
 
     @FXML
