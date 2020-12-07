@@ -175,6 +175,8 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         }else {
             MessageAlert.showErrorMessage(null, "A user must be selected");
         }
+        //saluta branch 1
+        //hei
     }
 
     @FXML
