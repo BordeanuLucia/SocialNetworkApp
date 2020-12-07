@@ -137,6 +137,11 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     }
 
     private void initModel3(){
+        List<FriendshipDTO> sentRequests = StreamSupport.stream(friendshipService.getAllRequests().spliterator(),false)
+                .filter(x->{if(x.getStatus().equals(Status.PENDING) && x.getId().getLeft() == currentUser.getId()) return true; return false;})
+                .map(x->{return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
+                .collect(Collectors.toList());
+        model3.setAll(sentRequests);
     }
 
     private void initModel4(){
@@ -182,8 +187,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         }else {
             MessageAlert.showErrorMessage(null, "A user must be selected");
         }
-        //saluta branch 1
-        //hei
     }
 
     @FXML
