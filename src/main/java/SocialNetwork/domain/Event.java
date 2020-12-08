@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//trebuie implementat sablonul observer pe page si event
 public class Event {
     private List<Utilizator> participants;
     private LocalDate date;
@@ -28,5 +29,11 @@ public class Event {
                 break;
             }
         }
+    }
+
+    public void notifica(){
+        //verificare daca e aproape de data specificata
+        //daca da se notifica utilizatorii
+        //TODO
     }
 }
