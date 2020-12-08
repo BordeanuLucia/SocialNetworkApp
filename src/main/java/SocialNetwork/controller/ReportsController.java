@@ -66,7 +66,7 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
         LocalDate localDate1 = datePicker1.getValue();
         LocalDate localDate2 = datePicker2.getValue();
         if(localDate1 != null && localDate2 != null) {
-            if(localDate1.isBefore(localDate2)) {
+            if(localDate1.isBefore(localDate2) || localDate1.equals(localDate2)) {
                 List<FriendshipDTO> prietenii = friendshipService.friendsBetweenDates(localDate1, localDate2)
                         .stream().map(x -> {
                             if (x.getId().getRight() == currentUser.getId())
@@ -112,7 +112,7 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
         LocalDate localDate2 = datePicker4.getValue();
         Utilizator user = comboBox.getValue();
         if(localDate1 != null && localDate2 != null && user != null) {
-            if(localDate1.isBefore(localDate2)) {
+            if(localDate1.isBefore(localDate2) || localDate1.equals(localDate2)) {
                 List<Message> mesaje = messageService.messagesBetweenDatesUser(localDate1, localDate2, user.getId());
                 if (mesaje.size() != 0) {
                     text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
