@@ -35,7 +35,7 @@
       </TableView>
       <Button fx:id="unsendRequestButton" layoutX="801.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleUnsendRequest" prefHeight="32.0" prefWidth="80.0" text="Unsend" />
       <TextField fx:id="textFieldMessage" layoutX="20.0" layoutY="387.0" prefHeight="32.0" prefWidth="174.0" />
-      <TextField fx:id="textFieldUserMessage" layoutX="48.0" layoutY="56.0" />
+      <TextField fx:id="textFieldUserMessage" layoutX="48.0" layoutY="56.0" promptText="User Conversation" />
       <TableView fx:id="tableView4" layoutX="48.0" layoutY="83.0" onMouseClicked="#showConversation" prefHeight="81.0" prefWidth="152.0">
         <columns>
           <TableColumn fx:id="tableColumnUsername4" prefWidth="151.19999313354492" text="Username" />

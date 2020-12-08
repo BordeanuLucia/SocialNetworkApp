@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkgrey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.UserController">
+<AnchorPane prefHeight="400.0" prefWidth="564.0" style="-fx-background-color: darkgrey;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.UserController">
    <children>
       <AnchorPane layoutX="153.0" layoutY="51.0" prefHeight="297.0" prefWidth="294.0" style="-fx-background-color: grey;">
          <children>
