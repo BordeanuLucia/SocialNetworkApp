@@ -14,4 +14,36 @@ public class Page {
         this.messages = messages;
         this.friendRequests = friendRequests;
     }
+
+    public void setUser(Utilizator user) {
+        this.user = user;
+    }
+
+    public void setFriends(List<Prietenie> friends) {
+        this.friends = friends;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void setFriendRequests(List<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
+    }
+
+    public Utilizator getUser() {
+        return user;
+    }
+
+    public List<Prietenie> getFriends() {
+        return friends;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public List<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
 }
