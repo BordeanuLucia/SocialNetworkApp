@@ -112,30 +112,33 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
         LocalDate localDate2 = datePicker4.getValue();
         Utilizator user = comboBox.getValue();
         if(localDate1 != null && localDate2 != null && user != null) {
-            List<Message> mesaje = messageService.messagesBetweenDatesUser(localDate1,localDate2, user.getId());
-
-            if(mesaje.size() != 0 ) {
-                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" a purtat urmatoarea discutie cu ").concat(user.toString()).concat(":\n");
-                for (Message message : mesaje) {
-                    if (message.getFrom().equals(currentUser)) {
-                        text.concat(currentUser.toString()).concat(": ").concat(message.getMessage());
-                        if (message.getReply() != -1l)
-                            text.concat(" reply to: ").concat(messageService.findOne(message.getReply()).getMessage());
-                        text.concat("\n");
-                    } else {
-                        text.concat(user.toString()).concat(": ").concat(message.getMessage());
-                        if (message.getReply() != -1l)
-                            text.concat(" reply to: ").concat(messageService.findOne(message.getReply()).getMessage());
-                        text.concat("\n");
+            if(localDate1.isBefore(localDate2) || localDate1.equals(localDate2)) {
+                List<Message> mesaje = messageService.messagesBetweenDatesUser(localDate1, localDate2, user.getId());
+                if (mesaje.size() != 0) {
+                    text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" a purtat urmatoarea discutie cu ").concat(user.toString()).concat(":\n");
+                    for (Message message : mesaje) {
+                        if (message.getFrom().equals(currentUser)) {
+                            text.concat(currentUser.toString()).concat(": ").concat(message.getMessage());
+                            if (message.getReply() != -1l)
+                                text.concat(" reply to: ").concat(messageService.findOne(message.getReply()).getMessage());
+                            text.concat("\n");
+                        } else {
+                            text.concat(user.toString()).concat(": ").concat(message.getMessage());
+                            if (message.getReply() != -1l)
+                                text.concat(" reply to: ").concat(messageService.findOne(message.getReply()).getMessage());
+                            text.concat("\n");
+                        }
                     }
+                } else {
+                    text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" nu a discutat nimic cu ").concat(user.toString()).concat(":\n");
                 }
+                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A type 2 pdf report was generated");
             }
             else{
-                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" nu a discutat nimic cu ").concat(user.toString()).concat(":\n");
+                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "Fierst date must be before second date");
             }
-            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A type 2 pdf report was generated");
         }
         else{
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A date and a user must be selected");
