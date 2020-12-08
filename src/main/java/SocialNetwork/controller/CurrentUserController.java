@@ -21,6 +21,7 @@ import utils.events.MessageTaskChangeEvent;
 import utils.observer.Observer;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -30,6 +31,8 @@ import java.util.stream.StreamSupport;
 public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     @FXML
     TableView<FriendshipDTO> tableView1;
+    @FXML
+    TableColumn<FriendshipDTO, Button> tableColumnButton1;
     @FXML
     TableColumn<FriendshipDTO, String> tableColumnDate1;
     @FXML
@@ -88,6 +91,7 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     private void initialize() {
         tableColumnDate1.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,String>("date"));
         tableColumnUsername1.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,String>("username"));
+        tableColumnButton1.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,Button>("button"));
         tableView1.setItems(model1);
         tableColumnUsername2.setCellValueFactory(new PropertyValueFactory<Utilizator,String>("username"));
         tableView2.setItems(model2);
@@ -101,46 +105,60 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     }
 
     private void initModel1() {
-        Iterable<Prietenie> friendships = friendshipService.getAllFriendships();
-        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
-                .filter(x->{if(x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId()) return true; return false;})
-                .map(x->{if(x.getId().getLeft()== currentUser.getId())
-                            return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
-                         return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
-                })
-                .collect(Collectors.toList());
-        model1.setAll(friendsList);
+//        Iterable<Prietenie> friendships = friendshipService.getAllFriendships();
+//        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
+//                .filter(x->{if(x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId()) return true; return false;})
+//                .map(x->{if(x.getId().getLeft()== currentUser.getId())
+//                            return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
+//                         return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
+//                })
+//                .collect(Collectors.toList());
+//        model1.setAll(friendsList);
+        List<FriendshipDTO> list = StreamSupport.stream(userService.getAll().spliterator(), false)
+                .map(x->{
+                    FriendRequest friendRequest1 = friendshipService.findRequest(currentUser.getId(), x.getId());
+                    FriendRequest friendRequest2 = friendshipService.findRequest(x.getId(), currentUser.getId());
+                    if((friendRequest1 != null && friendRequest1.getStatus().equals(Status.APPROVED)) || (friendRequest2 != null && friendRequest2.getStatus().equals(Status.APPROVED)))
+                        return new FriendshipDTO(x, friendshipService.findFriendship(currentUser.getId(), x.getId()).getDate(), FriendshipType.FRIENDS, friendshipService);
+                    if(friendRequest1 != null && friendRequest1.getStatus().equals(Status.PENDING))
+                        return new FriendshipDTO(x,null, FriendshipType.REQUEST_SEND, friendshipService);
+                    if(friendRequest2 != null && friendRequest2.getStatus().equals(Status.PENDING))
+                        return new FriendshipDTO(x,null, FriendshipType.REQUEST_RECEIVED, friendshipService);
+                    return new FriendshipDTO(x,null, FriendshipType.NOT_FRIENDS, friendshipService);
+                }).collect(Collectors.toList());
+        model1.setAll(list);
+
     }
 
     private void initModel2() {
-        Iterable<FriendRequest> friendships = friendshipService.getAllRequests();
-        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
-                .filter(x->{if((x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId())&& !x.getStatus().equals(Status.REJECTED)) return true; return false;})
-                .map(x->{if(x.getId().getLeft()== currentUser.getId())
-                    return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
-                    return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
-                })
-                .collect(Collectors.toList());
-        Iterable<Utilizator> u = userService.getAll();
-        List<Utilizator> users = StreamSupport.stream(u.spliterator(),false).collect(Collectors.toList());
-        List<Utilizator> us = new ArrayList<>();
-        for(Utilizator ut : users){
-            Boolean gasit = false;
-            for(FriendshipDTO friendshipDTO : friendsList)
-                if(friendshipDTO.getUser().getUsername().equals(ut.getUsername()))
-                    gasit = true;
-                if(!gasit)
-                    us.add(ut);
-        }
-        model2.setAll(us);
+//        Iterable<FriendRequest> friendships = friendshipService.getAllRequests();
+//        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
+//                .filter(x->{if((x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId())&& !x.getStatus().equals(Status.REJECTED)) return true; return false;})
+//                .map(x->{if(x.getId().getLeft()== currentUser.getId())
+//                    return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
+//                    return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
+//                })
+//                .collect(Collectors.toList());
+//        Iterable<Utilizator> u = userService.getAll();
+//        List<Utilizator> users = StreamSupport.stream(u.spliterator(),false).collect(Collectors.toList());
+//        List<Utilizator> us = new ArrayList<>();
+//        for(Utilizator ut : users){
+//            Boolean gasit = false;
+//            for(FriendshipDTO friendshipDTO : friendsList)
+//                if(friendshipDTO.getUser().getUsername().equals(ut.getUsername()))
+//                    gasit = true;
+//                if(!gasit)
+//                    us.add(ut);
+//        }
+//        model2.setAll(us);
     }
 
     private void initModel3(){
-        List<FriendshipDTO> sentRequests = StreamSupport.stream(friendshipService.getAllRequests().spliterator(),false)
-                .filter(x->{if(x.getStatus().equals(Status.PENDING) && x.getId().getLeft() == currentUser.getId()) return true; return false;})
-                .map(x->{return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
-                .collect(Collectors.toList());
-        model3.setAll(sentRequests);
+//        List<FriendshipDTO> sentRequests = StreamSupport.stream(friendshipService.getAllRequests().spliterator(),false)
+//                .filter(x->{if(x.getStatus().equals(Status.PENDING) && x.getId().getLeft() == currentUser.getId()) return true; return false;})
+//                .map(x->{return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
+//                .collect(Collectors.toList());
+//        model3.setAll(sentRequests);
     }
 
     private void initModel4(){

@@ -362,4 +362,13 @@ public class PrietenieService implements Observable<MessageTaskChangeEvent> {
     public Iterable<Prietenie> getAllFriendships(){ return repoFriendship.findAll(); }
 
     public Iterable<FriendRequest> getAllRequests(){ return repoRequest.findAll(); }
+
+    public FriendRequest findRequest(Long id1, Long id2){
+        return repoRequest.findOne(new Tuple<>(id1, id2));
+    }
+
+    public Prietenie findFriendship(Long id1, Long id2){
+        return repoFriendship.findOne(new Tuple<>(id1,id2));
+    }
+
 }

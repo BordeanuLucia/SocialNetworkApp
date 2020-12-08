@@ -10,13 +10,14 @@
 
 <AnchorPane prefHeight="486.0" prefWidth="903.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.CurrentUserController">
    <children>
-      <TableView fx:id="tableView1" layoutX="252.0" layoutY="63.0" prefHeight="367.0" prefWidth="294.0">
+      <TableView fx:id="tableView1" layoutX="252.0" layoutY="63.0" prefHeight="367.0" prefWidth="287.0">
         <columns>
-          <TableColumn fx:id="tableColumnUsername1" prefWidth="157.5999755859375" text="Username" />
-          <TableColumn fx:id="tableColumnDate1" prefWidth="135.99997558593748" text="Date" />
+          <TableColumn fx:id="tableColumnUsername1" prefWidth="97.60005187988281" text="Username" />
+          <TableColumn fx:id="tableColumnDate1" prefWidth="93.5999755859375" text="Date" />
+            <TableColumn fx:id="tableColumnButton1" prefWidth="93.5999755859375" text="Button" />
         </columns>
       </TableView>
-      <TableView fx:id="tableView2" layoutX="556.0" layoutY="64.0" prefHeight="203.0" prefWidth="218.0">
+      <TableView fx:id="tableView2" layoutX="556.0" layoutY="61.0" prefHeight="203.0" prefWidth="218.0">
         <columns>
           <TableColumn fx:id="tableColumnUsername2" prefWidth="199.20001220703125" text="Username" />
         </columns>
