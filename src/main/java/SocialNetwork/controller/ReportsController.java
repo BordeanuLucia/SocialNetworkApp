@@ -66,34 +66,40 @@ public class ReportsController implements Observer<MessageTaskChangeEvent> {
         LocalDate localDate1 = datePicker1.getValue();
         LocalDate localDate2 = datePicker2.getValue();
         if(localDate1 != null && localDate2 != null) {
-            List<FriendshipDTO> prietenii = friendshipService.friendsBetweenDates(localDate1, localDate2)
-                    .stream().map(x->{if(x.getId().getRight() == currentUser.getId()) return new FriendshipDTO(userService.findOne(x.getId().getLeft()),x.getDate());
-                                        else return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
-                    .collect(Collectors.toList());
-            if(prietenii.size() != 0){
-                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" s-a imprietenit cu:\n");
-                for(FriendshipDTO friendshipDTO : prietenii){
-                    text.concat(friendshipDTO.getDate()).concat(" ").concat(friendshipDTO.getUsername()).concat("\n");
+            if(localDate1.isBefore(localDate2) || localDate1.equals(localDate2)) {
+                List<FriendshipDTO> prietenii = friendshipService.friendsBetweenDates(localDate1, localDate2)
+                        .stream().map(x -> {
+                            if (x.getId().getRight() == currentUser.getId())
+                                return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
+                            else return new FriendshipDTO(userService.findOne(x.getId().getRight()), x.getDate());
+                        })
+                        .collect(Collectors.toList());
+                if (prietenii.size() != 0) {
+                    text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" s-a imprietenit cu:\n");
+                    for (FriendshipDTO friendshipDTO : prietenii) {
+                        text.concat(friendshipDTO.getDate()).concat(" ").concat(friendshipDTO.getUsername()).concat("\n");
+                    }
+                } else {
+                    text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" nu s-a imprietenit cu nicio persoana.\n");
                 }
+                List<Message> mesaje = messageService.messagesBetweenDates(localDate1, localDate2);
+                if (mesaje.size() != 0) {
+                    text.concat("\n").concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" a primit urmatoarele mesaje:\n");
+                    for (Message message : mesaje) {
+                        text.concat(message.getDate().format(Constants.DATE_TIME_FORMATTER)).concat(" ").concat(message.getFrom().toString()).concat(": ").concat(message.getMessage()).concat("\n");
+                    }
+                } else {
+                    text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
+                            .concat(" ").concat(currentUser.toString()).concat(" nu a primit niciun mesaj.\n");
+                }
+                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A type 1 pdf report was generated");
             }
             else{
-                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" nu s-a imprietenit cu nicio persoana.\n");
+                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "Fierst date must be before second date");
             }
-            List<Message> mesaje = messageService.messagesBetweenDates(localDate1,localDate2);
-            if(mesaje.size() != 0 ){
-                text.concat("\n").concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" a primit urmatoarele mesaje:\n");
-                for(Message message : mesaje){
-                    text.concat(message.getDate().format(Constants.DATE_TIME_FORMATTER)).concat(" ").concat(message.getFrom().toString()).concat(": ").concat(message.getMessage()).concat("\n");
-                }
-            }
-            else{
-                text.concat("In perioada ").concat(localDate1.toString()).concat(" - ").concat(localDate2.toString())
-                        .concat(" ").concat(currentUser.toString()).concat(" nu a primit niciun mesaj.\n");
-            }
-            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A type 1 pdf report was generated");
         }else{
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Message", "A date must be selected");
         }
