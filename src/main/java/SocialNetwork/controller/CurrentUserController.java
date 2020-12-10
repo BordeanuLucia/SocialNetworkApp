@@ -38,13 +38,7 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     @FXML
     TableColumn<FriendshipDTO,String> tableColumnUsername1;
     @FXML
-    TableView<Utilizator> tableView2;
-    @FXML
-    TableColumn<Utilizator,String> tableColumnUsername2;
-    @FXML
-    TableView<FriendshipDTO> tableView3;
-    @FXML
-    TableColumn<FriendshipDTO,String> tableColumnUsername3;
+    CheckBox checkBox1;
     @FXML
     TextField textFieldUsername;
     @FXML
@@ -66,8 +60,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     Stage previousStage;
     Utilizator currentUser;
     ObservableList<FriendshipDTO> model1 = FXCollections.observableArrayList();
-    ObservableList<Utilizator> model2 = FXCollections.observableArrayList();
-    ObservableList<FriendshipDTO> model3 = FXCollections.observableArrayList();
     ObservableList<Utilizator> model4 = FXCollections.observableArrayList();
     ObservableList<MessageDTO> model5 = FXCollections.observableArrayList();
 
@@ -82,8 +74,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         this.dialogStage=stage;
         this.currentUser=u;
         initModel1();
-        initModel2();
-        initModel3();
         initModel4();
     }
 
@@ -93,10 +83,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         tableColumnUsername1.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,String>("username"));
         tableColumnButton1.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,Button>("button"));
         tableView1.setItems(model1);
-        tableColumnUsername2.setCellValueFactory(new PropertyValueFactory<Utilizator,String>("username"));
-        tableView2.setItems(model2);
-        tableColumnUsername3.setCellValueFactory(new PropertyValueFactory<FriendshipDTO,String>("username"));
-        tableView3.setItems(model3);
         tableColumnUsername4.setCellValueFactory(new PropertyValueFactory<Utilizator,String>("username"));
         tableView4.setItems(model4);
         listView.setItems(model5);
@@ -104,16 +90,8 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         textFieldUserMessage.textProperty().addListener(x->handleFilter2());
     }
 
+    List<FriendshipDTO> friendshipDTOList = new ArrayList<>();
     private void initModel1() {
-//        Iterable<Prietenie> friendships = friendshipService.getAllFriendships();
-//        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
-//                .filter(x->{if(x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId()) return true; return false;})
-//                .map(x->{if(x.getId().getLeft()== currentUser.getId())
-//                            return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
-//                         return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
-//                })
-//                .collect(Collectors.toList());
-//        model1.setAll(friendsList);
         List<FriendshipDTO> list = StreamSupport.stream(userService.getAll().spliterator(), false)
                 .map(x->{
                     FriendRequest friendRequest1 = friendshipService.findRequest(currentUser.getId(), x.getId());
@@ -126,39 +104,21 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
                         return new FriendshipDTO(x,null, FriendshipType.REQUEST_RECEIVED, friendshipService);
                     return new FriendshipDTO(x,null, FriendshipType.NOT_FRIENDS, friendshipService);
                 }).collect(Collectors.toList());
+        this.friendshipDTOList = list;
         model1.setAll(list);
-
     }
 
-    private void initModel2() {
-//        Iterable<FriendRequest> friendships = friendshipService.getAllRequests();
-//        List<FriendshipDTO> friendsList = StreamSupport.stream(friendships.spliterator(),false)
-//                .filter(x->{if((x.getId().getLeft()== currentUser.getId() || x.getId().getRight()== currentUser.getId())&& !x.getStatus().equals(Status.REJECTED)) return true; return false;})
-//                .map(x->{if(x.getId().getLeft()== currentUser.getId())
-//                    return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());
-//                    return new FriendshipDTO(userService.findOne(x.getId().getLeft()), x.getDate());
-//                })
-//                .collect(Collectors.toList());
-//        Iterable<Utilizator> u = userService.getAll();
-//        List<Utilizator> users = StreamSupport.stream(u.spliterator(),false).collect(Collectors.toList());
-//        List<Utilizator> us = new ArrayList<>();
-//        for(Utilizator ut : users){
-//            Boolean gasit = false;
-//            for(FriendshipDTO friendshipDTO : friendsList)
-//                if(friendshipDTO.getUser().getUsername().equals(ut.getUsername()))
-//                    gasit = true;
-//                if(!gasit)
-//                    us.add(ut);
-//        }
-//        model2.setAll(us);
-    }
-
-    private void initModel3(){
-//        List<FriendshipDTO> sentRequests = StreamSupport.stream(friendshipService.getAllRequests().spliterator(),false)
-//                .filter(x->{if(x.getStatus().equals(Status.PENDING) && x.getId().getLeft() == currentUser.getId()) return true; return false;})
-//                .map(x->{return new FriendshipDTO(userService.findOne(x.getId().getRight()),x.getDate());})
-//                .collect(Collectors.toList());
-//        model3.setAll(sentRequests);
+    @FXML
+    public void handleOnlyFriends(){
+        if(checkBox1.isSelected()){
+            List<FriendshipDTO> list = this.friendshipDTOList.stream()
+                    .filter(x->{if(x.getFriendshipType().equals(FriendshipType.FRIENDS)) return true; return false;})
+                    .collect(Collectors.toList());
+            model1.setAll(list);
+        }
+        else{
+            model1.setAll(this.friendshipDTOList);
+        }
     }
 
     private void initModel4(){
@@ -188,13 +148,9 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     }
 
     private void handleFilter1() {
-        if (textFieldUsername.getText().equals(""))
-            initModel2();
-        else {
-            Predicate<Utilizator> namePredicate = x -> x.getUsername().startsWith(textFieldUsername.getText());
-            Predicate<Utilizator> lastPredicate = x -> x.getUsername().contains(" " + textFieldUsername.getText());
-            model2.setAll(StreamSupport.stream(userService.getAll().spliterator(), false).filter(namePredicate.or(lastPredicate)).collect(Collectors.toList()));
-        }
+        Predicate<FriendshipDTO> namePredicate = x -> x.getUsername().startsWith(textFieldUsername.getText());
+        Predicate<FriendshipDTO> lastPredicate = x -> x.getUsername().contains(" " + textFieldUsername.getText());
+        model1.setAll(this.friendshipDTOList.stream().filter(namePredicate.or(lastPredicate)).collect(Collectors.toList()));
     }
 
     private void handleFilter2(){
@@ -207,7 +163,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     public void handleSendMessage(){
         String message = textFieldMessage.getText();
         MessageDTO selectedMessage = listView.getSelectionModel().getSelectedItem();
-        message.replace(" ","");
         if(!message.equals("")) {
             if (selectedUserForConversation != null) {
                 if (selectedMessage != null) {
@@ -228,43 +183,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
         }
     }
 
-    @FXML
-    private void handleUnsendRequest(){
-        FriendshipDTO dto = tableView3.getSelectionModel().getSelectedItem();
-        if(dto != null){
-            friendshipService.deleteRequest(dto.getUser());
-            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION,"Unsend","Request unsent");
-        }else {
-            MessageAlert.showErrorMessage(null, "A user must be selected");
-        }
-    }
-
-    @FXML
-    public void handleRemoveFriend(){
-        FriendshipDTO dto = tableView1.getSelectionModel().getSelectedItem();
-        if(dto != null){
-            Utilizator selectedUser = dto.getUser();
-            friendshipService.deleteFriendship(selectedUser.getId());
-            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION,"Delete","Friend removed");
-        }else {
-            MessageAlert.showErrorMessage(null, "A user must be selected");
-        }
-    }
-
-    @FXML
-    public void handleAddFriend(){
-        Utilizator selectedUser = tableView2.getSelectionModel().getSelectedItem();
-        if(selectedUser != null) {
-            try {
-                friendshipService.addFriendship(selectedUser.getId());
-                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Add Friend", "Request sent");
-            }catch(ServiceException | RepoException | ValidationException e){
-                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Add Friend", e.toString());
-            }
-        }else {
-            MessageAlert.showErrorMessage(null, "A user to befriend with must be selected");
-        }
-    }
 
     @FXML
     public void handleShowRequests(){
@@ -326,8 +244,6 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
     @Override
     public void update(MessageTaskChangeEvent messageTaskChangeEvent) {
         initModel1();
-        initModel2();
-        initModel3();
         initModel4();
         showConversation();
     }

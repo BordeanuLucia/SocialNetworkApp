@@ -11,9 +11,12 @@ import SocialNetwork.service.UtilizatorService;
 import SocialNetwork.config.ApplicationContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 
@@ -30,6 +33,7 @@ public class MainApp extends Application {
     Repository<Long, Message> messageDB = new MessageDBRepository(url,username,password,userDB);
     MessageService messageService = new MessageService(messageDB, userDB);
 
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -37,16 +41,16 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         initView(primaryStage);
-        primaryStage.setWidth(700);
         primaryStage.show();
     }
 
+    int initialX, initialY;
     private void initView(Stage primaryStage) throws IOException {
-
         FXMLLoader usersLoader = new FXMLLoader();
         usersLoader.setLocation(getClass().getResource("/sceneBuilder/logIn.fxml"));
         AnchorPane usersLayout = usersLoader.load();
-        primaryStage.setScene(new Scene(usersLayout));
+        Scene scene = new Scene(usersLayout);
+        primaryStage.setScene(scene);
 
         UserController userController = usersLoader.getController();
         userController.setUtilizatorService(userService, friendshipService, messageService, primaryStage);

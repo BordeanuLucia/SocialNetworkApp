@@ -1,0 +1,9 @@
+package SocialNetwork.utils;
+
+public enum ToDo {
+    REMEMBER_ME,
+    FORGOT_PASSWORD,
+    CREATE_ACCOUNT,
+    WEAK_PASSWORD,
+    TRIANGLE_IF_USERNAME_PASSWORD_INCCORECT
+}

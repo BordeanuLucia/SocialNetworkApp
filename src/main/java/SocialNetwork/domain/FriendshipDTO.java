@@ -43,6 +43,10 @@ public class FriendshipDTO {
         return username;
     }
 
+    public FriendshipType getFriendshipType() {
+        return friendshipType;
+    }
+
     public String getDate() {
         return date;
     }

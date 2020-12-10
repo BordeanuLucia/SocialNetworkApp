@@ -11,7 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,6 +30,14 @@ public class UserController {
     private TextField textFieldUsername;
     @FXML
     private PasswordField textFieldPassword;
+    @FXML
+    private Text textInvalidUsernamePassword;
+    @FXML
+    private Pane secondPane;
+    @FXML
+    private AnchorPane firstPane;
+    @FXML
+    private ImageView logInImage;
 
 
     public void setUtilizatorService(UtilizatorService userService, PrietenieService friendshipService, MessageService messageService, Stage stage) {
@@ -36,7 +48,9 @@ public class UserController {
     }
 
     @FXML
-    public void initialize() { }
+    public void initialize() {
+        textInvalidUsernamePassword.setText("");
+    }
 
     private void clerFields(){
         textFieldUsername.setText("");
@@ -52,10 +66,12 @@ public class UserController {
             friendshipService.setCurrentUser(user.getId());
             messageService.setCurrentUser(user.getId());
             this.clerFields();
+            this.textInvalidUsernamePassword.setText("");
             showSignInDialog(user);
             this.stage.close();
         }catch (ServiceException s) {
-            MessageAlert.showErrorMessage(null, s.toString());
+            textInvalidUsernamePassword.setText("Invalid username or password");
+//            MessageAlert.showErrorMessage(null, s.toString());
         }
     }
 
