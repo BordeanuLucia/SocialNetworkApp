@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="466.0" prefWidth="885.0" stylesheets="@styleProfile.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CurrentUserController">
+   <children>
+      <BorderPane prefHeight="500.0" prefWidth="887.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <TabPane fx:id="tabPane" prefHeight="446.0" prefWidth="606.0" styleClass="arrow" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="   HOME   ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="auxiliar1" layoutX="125.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="17.5999755859375" />
+                              <Text fx:id="auxiliar2" layoutX="429.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                              <Pagination fx:id="allUsersPagination" layoutX="54.0" layoutY="355.0" maxPageIndicatorCount="3" prefHeight="81.0" prefWidth="134.0" />
+                              <Pagination fx:id="messagesPagination" layoutX="231.0" layoutY="329.0" maxPageIndicatorCount="20" prefHeight="54.0" prefWidth="469.0" />
+                              <ListView fx:id="chatListView" layoutX="252.0" layoutY="30.0" prefHeight="356.0" prefWidth="428.0" />
+                              <TextField fx:id="textFieldMessage" layoutX="252.0" layoutY="385.0" prefHeight="41.0" prefWidth="386.0" promptText="type your message..." />
+                              <Label layoutX="637.0" layoutY="384.0" prefHeight="43.0" prefWidth="42.0" style="-fx-background-color: #bfbfbf;" />
+                              <Label layoutX="643.0" layoutY="383.0" prefHeight="46.0" prefWidth="30.0" text="➤">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="sendButton" layoutX="637.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleSendMessage" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="#00ff11">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Label fx:id="conversationUser" alignment="CENTER_RIGHT" layoutX="253.0" layoutY="3.0" prefHeight="26.0" prefWidth="426.0" textAlignment="RIGHT">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <ListView fx:id="tryAllUsers" layoutX="6.0" layoutY="53.0" maxWidth="230.0" onMouseClicked="#tryShowConversation" prefHeight="338.0" prefWidth="230.0" />
+                              <TextField fx:id="textFieldSearchUsername" layoutX="6.0" layoutY="15.0" prefHeight="39.0" prefWidth="230.0" promptText="Search">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font></TextField>
+                              <ListView fx:id="chat" layoutX="252.0" layoutY="30.0" prefHeight="356.0" prefWidth="428.0" />
+                              <Pane fx:id="friendPagePane" layoutY="14.0" prefHeight="419.0" prefWidth="236.5" style="-fx-background-color: white;" visible="false">
+                                 <children>
+                                    <ImageView fx:id="friendProfilePicture" fitHeight="157.0" fitWidth="153.0" layoutX="43.0" layoutY="3.0" pickOnBounds="true" />
+                                    <Label fx:id="friendUsernameLabel" alignment="CENTER" layoutX="25.0" layoutY="160.0" maxWidth="187.0" prefHeight="30.0" prefWidth="187.0" text="Label" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="friendButton" layoutX="17.0" layoutY="333.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="202.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Label fx:id="friendDateLabel" layoutX="5.0" layoutY="301.0" prefHeight="21.0" prefWidth="229.0" text="Label">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="friendLastNameLabel" alignment="TOP_LEFT" layoutX="77.0" layoutY="262.0" prefHeight="37.0" prefWidth="156.0" text="Label" wrapText="true">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="friendFirstNameLabel" alignment="TOP_LEFT" layoutX="78.0" layoutY="222.0" prefHeight="36.0" prefWidth="157.0" text="Label" wrapText="true">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="5.0" prefHeight="27.0" prefWidth="26.0" text="←">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="backFriendPage" layoutY="3.0" mnemonicParsing="false" onAction="#handleBackFriendPage" prefHeight="25.0" prefWidth="38.0" style="-fx-background-color: transparent;">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="declineFriendButton" layoutX="17.0" layoutY="375.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="202.0" text="Decline" visible="false">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Label layoutX="4.0" layoutY="222.0" text="First name:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="4.0" layoutY="262.0" text="Last name:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="   REPORTS   ">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="reportTextArea" editable="false" layoutX="234.0" layoutY="5.0" maxWidth="459.0" prefHeight="425.0" prefWidth="459.0" promptText="                                                                                                                      generate your first report" wrapText="true">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font></TextArea>
+                              <TabPane fx:id="tabPaneReports" layoutX="3.0" layoutY="14.0" prefHeight="394.0" prefWidth="228.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab text="Raport activitate">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <DatePicker fx:id="datePicker1R1" layoutX="21.0" layoutY="54.0" onAction="#handleDate1R1" prefHeight="31.0" prefWidth="184.0" promptText="pick a date" />
+                                                <DatePicker fx:id="datePicker2R1" layoutX="21.0" layoutY="125.0" onAction="#handleDate2R1" prefHeight="31.0" prefWidth="184.0" promptText="pick a date" />
+                                                <Button fx:id="raport1Button" layoutX="12.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleReport1" prefHeight="36.0" prefWidth="202.0" text="Generate report" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="saveButtonR1" layoutX="12.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleSaveReport1" prefHeight="36.0" prefWidth="202.0" text="Save">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label layoutX="21.0" layoutY="28.0" prefHeight="26.0" prefWidth="46.0" text="Since">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="21.0" layoutY="100.0" prefHeight="26.0" prefWidth="54.0" text="Until">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Raport conversatie">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="170.0" prefWidth="256.0">
+                                             <children>
+                                                <DatePicker fx:id="datePicker1R2" layoutX="21.0" layoutY="54.0" onAction="#handleDate1R2" prefHeight="31.0" prefWidth="184.0" promptText="pick a date" />
+                                                <DatePicker fx:id="datePicker2R2" layoutX="21.0" layoutY="125.0" onAction="#handleDate2R2" prefHeight="31.0" prefWidth="184.0" promptText="pick a date" />
+                                                <ComboBox fx:id="comboBox" layoutX="21.0" layoutY="195.0" onAction="#handleCombo" prefHeight="26.0" prefWidth="184.0" promptText="choose user" />
+                                                <Button fx:id="raport2Button" layoutX="12.0" layoutY="244.0" mnemonicParsing="false" onAction="#handleReport2" prefHeight="36.0" prefWidth="202.0" text="Generate report">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="saveButtonR2" layoutX="12.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleSaveReport2" prefHeight="36.0" prefWidth="202.0" text="Save">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Label layoutX="21.0" layoutY="28.0" prefHeight="26.0" prefWidth="46.0" text="Since">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="21.0" layoutY="100.0" prefHeight="26.0" prefWidth="54.0" text="Until">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="21.0" layoutY="169.0" prefHeight="26.0" prefWidth="100.0" text="With whom">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="   EVENTS   ">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="createEventPane" layoutX="408.0" layoutY="36.0" prefHeight="362.0" prefWidth="268.0">
+                                 <children>
+                                    <Text layoutX="31.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create your event" textAlignment="CENTER" wrappingWidth="205.8470458984375">
+                                       <font>
+                                          <Font size="26.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="32.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="44.061309814453125">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="32.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" wrappingWidth="44.061309814453125">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="eventTitleTextField" layoutX="32.0" layoutY="93.0" onKeyTyped="#handleTitleEvent" prefHeight="31.0" prefWidth="202.0" promptText="event name" />
+                                    <DatePicker fx:id="eventDatePicker" layoutX="32.0" layoutY="165.0" onAction="#handleDateEvent" prefHeight="31.0" prefWidth="202.0" promptText="when happens" />
+                                    <Spinner fx:id="beginsSpinner" layoutX="32.0" layoutY="237.0" prefHeight="24.0" prefWidth="85.0">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </Spinner>
+                                    <Spinner fx:id="endsSpinner" layoutX="150.0" layoutY="237.0" prefHeight="24.0" prefWidth="85.0" />
+                                    <Button fx:id="createEventButton" layoutX="32.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="36.0" prefWidth="202.0" text="Create event" textAlignment="CENTER">
+                                       <cursor>
+                                          <Cursor fx:constant="OPEN_HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Text layoutX="150.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ends at" wrappingWidth="67.26138305664062">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="32.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Starts at" wrappingWidth="77.66128540039062">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Label alignment="TOP_CENTER" layoutX="71.0" layoutY="70.0" onMouseEntered="#showEventTitleRestrictions" onMouseExited="#dontShowEventTitleRestrictions" prefHeight="23.0" prefWidth="24.0" text="ⓘ" textAlignment="CENTER" textFill="#0051c2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Text fx:id="eventTitleRestrictionsText" layoutX="89.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Title between 3 and 50 characters" textAlignment="CENTER" visible="false" wrappingWidth="160.5367431640625">
+                                       <font>
+                                          <Font size="9.5" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                              <Pagination fx:id="eventsPagination" layoutX="129.0" layoutY="363.0" maxPageIndicatorCount="4" prefHeight="71.0" prefWidth="133.0" />
+                              <ListView fx:id="tryAllEvents" layoutX="29.0" layoutY="14.0" prefHeight="370.0" prefWidth="378.0" />
+                              <CheckBox fx:id="eventsCheckBox" layoutX="277.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleOnlyGoing" text="Only subscribed" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab fx:id="tabMyProfile" text="MY PROFILE">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Pagination fx:id="myFriendsPagination" layoutX="454.0" layoutY="318.0" prefHeight="106.0" prefWidth="258.0" />
+                              <ListView fx:id="friendsListView" layoutX="483.0" layoutY="67.0" prefHeight="366.0" prefWidth="200.0" />
+                              <TextField fx:id="searchFriends" layoutX="483.0" layoutY="37.0" prefWidth="200.0" promptText="search friends">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <ListView fx:id="eventsListView" layoutX="19.0" layoutY="324.0" prefHeight="94.0" prefWidth="444.0" />
+                              <TextField fx:id="firstNameEditTextField" editable="false" layoutX="19.0" layoutY="31.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="lastNameEditTextField" editable="false" layoutX="19.0" layoutY="92.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="usernameEditTextField" editable="false" layoutX="19.0" layoutY="154.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="emailEditTextField" editable="false" layoutX="19.0" layoutY="218.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="urlEditTextField" editable="false" layoutX="19.0" layoutY="275.0" prefHeight="31.0" prefWidth="412.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <PasswordField fx:id="passwordEditTextField" layoutX="275.0" layoutY="125.0" promptText="new password">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </PasswordField>
+                              <PasswordField fx:id="confirmPasswordEditTextField" layoutX="275.0" layoutY="182.0" promptText="confirm new password">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </PasswordField>
+                              <Button fx:id="changePasswordButton" layoutX="300.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleChangePassword" text="Change password">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Label layoutX="19.0" layoutY="12.0" text="First name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="19.0" layoutY="72.0" text="Last name">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="19.0" layoutY="134.0" text="Username">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="19.0" layoutY="198.0" text="Email">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="19.0" layoutY="254.0" text="Profile picture">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="editButton" layoutX="313.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleEditData" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: transparent;" text="Edit you data">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Text layoutX="305.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;&lt;" />
+                              <Text layoutX="415.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;&gt;" />
+                              <Button fx:id="choosePictureButton" layoutX="429.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleChoosePicture" prefHeight="31.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="📎">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <PasswordField fx:id="actualPasswordEditTextField" layoutX="275.0" layoutY="67.0" prefHeight="31.2" prefWidth="186.4" promptText="your password">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </PasswordField>
+                              <ProgressBar fx:id="passwordStrengthBar" layoutX="275.0" layoutY="160.0" prefHeight="6.0" prefWidth="186.4" progress="0.0">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </ProgressBar>
+                              <ProgressBar fx:id="passwordStrengthBarGreen" layoutX="275.0" layoutY="160.0" prefHeight="6.0" prefWidth="186.4" progress="0.0" visible="false">
+                                 <effect>
+                                    <ColorAdjust hue="0.65" saturation="1.0" />
+                                 </effect>
+                              </ProgressBar>
+                              <ProgressBar fx:id="passwordStrengthBarYellow" layoutX="275.0" layoutY="160.0" prefHeight="6.0" prefWidth="101.0" progress="0.0" visible="false">
+                                 <effect>
+                                    <ColorAdjust hue="0.35" saturation="1.0" />
+                                 </effect>
+                              </ProgressBar>
+                              <ProgressBar fx:id="passwordStrengthBarRed" layoutX="274.0" layoutY="160.0" prefHeight="6.0" prefWidth="50.5" progress="0.0" visible="false">
+                                 <effect>
+                                    <ColorAdjust saturation="1.0" />
+                                 </effect>
+                              </ProgressBar>
+                              <Label fx:id="passwordInfoLabel" layoutX="357.0" layoutY="213.0" prefHeight="19.0" prefWidth="21.0" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="619.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleShowRequests" text="Requests" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="466.0" prefWidth="182.0" style="-fx-background-color: #c7c3c3;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="profilePicture" fitHeight="186.0" fitWidth="169.0" layoutX="7.0" layoutY="64.0" pickOnBounds="true">
+                     <image>
+                         <Image url="@../images/defaultUser.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="textUsername" alignment="CENTER" layoutX="8.0" layoutY="272.0" prefHeight="27.0" prefWidth="168.0" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutY="330.0" prefHeight="127.0" prefWidth="182.0">
+                     <children>
+                        <Button fx:id="notificationsButton" mnemonicParsing="false" onAction="#handleShowNotifications" prefHeight="44.0" prefWidth="193.0" style="-fx-background-color: transparent;" text="Notifications" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Separator prefHeight="19.0" prefWidth="100.0" />
+                        <Button fx:id="requestsButton" mnemonicParsing="false" onAction="#handleDeleteAccount" prefHeight="47.0" prefWidth="225.0" style="-fx-background-color: transparent;" text="Delete account" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Separator prefHeight="19.0" prefWidth="100.0" />
+                        <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="47.0" prefWidth="203.0" style="-fx-background-color: transparent;" text="Log Out" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Circle fx:id="notificationCircle" fill="#ff00003c" layoutX="151.0" layoutY="335.0" radius="13.0" stroke="#ffffff00" strokeType="INSIDE" visible="false" />
+                  <Text fx:id="noOfNotificationsText" layoutX="138.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="24.800018310546875">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <AnchorPane fx:id="notificationsPane" layoutY="34.0" prefHeight="412.0" prefWidth="150.0" style="-fx-background-color: #c7c3c3;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <ListView fx:id="notificationsListView" layoutX="8.0" layoutY="28.0" prefHeight="384.0" prefWidth="183.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                        <Text layoutX="4.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⤶" wrappingWidth="21.25439453125">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Text>
+                        <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleBackNotifications" prefHeight="19.0" prefWidth="28.0" style="-fx-background-color: transparent;" textAlignment="CENTER" />
+                        <Label alignment="CENTER" layoutX="39.0" layoutY="3.0" prefHeight="22.0" prefWidth="117.0" text="Notifications" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="182.0" text="𝐼𝓃𝓈𝒾𝒹𝑒" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+                  <Line endX="100.00003051757812" endY="278.0" layoutX="82.0" layoutY="187.0" startX="100.00003051757812" startY="-187.0" stroke="#8c8989" />
+               </children></AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

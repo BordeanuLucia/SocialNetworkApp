@@ -1,0 +1,15 @@
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+#chat .list-cell:odd {
+    -fx-background-color: white;
+}
+
+#chat .list-cell:even {
+    -fx-background-color: white;
+}

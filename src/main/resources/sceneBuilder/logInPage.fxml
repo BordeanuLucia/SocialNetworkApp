@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="firstPane" prefHeight="664.0" prefWidth="376.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
+    <children>
+        <AnchorPane prefHeight="664.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fx:id="logInImage" fitHeight="668.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <image>
+                        <Image url="@../images/logIn.jpg" />
+                    </image>
+                </ImageView>
+                <Pane fx:id="secondPane" layoutX="47.0" layoutY="82.0" prefHeight="503.0" prefWidth="282.0">
+                    <children>
+                        <ImageView fitHeight="507.0" fitWidth="296.0" layoutX="-2.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logInBlur.jpg" />
+                            </image>
+                            <effect>
+                                <Shadow color="#ffffff17" />
+                            </effect>
+                        </ImageView>
+                        <TextField fx:id="textFieldEmail" layoutX="40.0" layoutY="123.0" onAction="#handleSignIn" prefHeight="31.0" prefWidth="202.0" promptText="your email">
+                            <cursor>
+                                <Cursor fx:constant="TEXT" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </TextField>
+                        <PasswordField fx:id="textFieldPassword" layoutX="40.0" layoutY="177.0" onAction="#handleSignIn" prefHeight="31.0" prefWidth="202.0" promptText="password">
+                            <cursor>
+                                <Cursor fx:constant="TEXT" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </PasswordField>
+                        <Button fx:id="signInButton" layoutX="40.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSignIn" prefHeight="36.0" prefWidth="202.0" style="-fx-background-color: #bfbbbb;" text="Sign In" textAlignment="CENTER" textFill="#000000fc">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </Button>
+                        <Button fx:id="goCreateAccountButton" layoutX="40.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleGoCreateAccount" prefHeight="36.0" prefWidth="202.0" style="-fx-background-color: #bfbbbb;" text="Create account" textFill="#131313">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </Button>
+                        <Text fx:id="textInvalidUsernamePassword" fill="RED" layoutX="40.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="202.0000000000001">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Text>
+                        <Button fx:id="forgotPasswordButton" layoutX="62.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleGoForgotPassword" onMouseEntered="#handleChangeColorBlue" onMouseExited="#handleChangeColorWhite" prefHeight="31.0" prefWidth="159.0" style="-fx-background-color: transparent;" text="Forgot password?" textAlignment="CENTER" textFill="WHITE" underline="true">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </Button>
+                        <Text layoutX="34.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="𝐼𝓃𝓈𝒾𝒹𝑒" textAlignment="CENTER" wrappingWidth="214.13665771484375">
+                            <font>
+                                <Font size="60.0" />
+                            </font>
+                            <fill>
+                                <LinearGradient endX="1.0" endY="1.0" startX="1.0">
+                                    <stops>
+                                        <Stop color="BLACK" />
+                                        <Stop color="WHITE" offset="1.0" />
+                                    </stops>
+                                </LinearGradient>
+                            </fill>
+                        </Text>
+                        <CheckBox fx:id="rememberMeCheck" layoutX="14.0" layoutY="243.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="111.0" text="Remember me" textFill="WHITE">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </CheckBox>
+                  <Label alignment="TOP_CENTER" layoutX="131.0" layoutY="376.0" prefHeight="17.0" prefWidth="20.0" text="or" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Line endX="14.199974060058594" endY="-3.0517578125E-5" layoutX="105.0" layoutY="387.5" startX="-100.0" stroke="WHITE" />
+                  <Line endX="14.199974060058594" endY="-3.0517578125E-5" layoutX="264.0" layoutY="387.5" startX="-100.0" stroke="WHITE" />
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="createAccountPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fx:id="logInImage1" fitHeight="668.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logIn.jpg" />
+                    </image>
+                </ImageView>
+                <Pane fx:id="secondPane1" layoutX="24.0" layoutY="43.0" prefHeight="582.0" prefWidth="328.0">
+                    <children>
+                        <ImageView fitHeight="621.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logInBlur.jpg" />
+                            </image>
+                            <effect>
+                                <Shadow color="#ffffff17" />
+                            </effect>
+                        </ImageView>
+                        <Text fill="WHITE" layoutX="63.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Inside" textAlignment="CENTER" wrappingWidth="201.6000122070311">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Text>
+                        <TextField fx:id="firstNameTextField" layoutX="62.0" layoutY="126.0" prefHeight="25.0" prefWidth="202.0" promptText="your first name" />
+                        <TextField fx:id="lastNameTextField" layoutX="62.0" layoutY="181.0" prefHeight="25.0" prefWidth="202.0" promptText="your last name" />
+                        <TextField fx:id="emailTextField" layoutX="62.0" layoutY="291.0" prefHeight="25.0" prefWidth="202.0" promptText="your email" />
+                        <PasswordField fx:id="passwordTextField" layoutX="62.0" layoutY="346.0" prefHeight="25.0" prefWidth="202.0" promptText="choose password" />
+                        <PasswordField fx:id="confirmPasswordTextField" layoutX="62.0" layoutY="409.0" prefHeight="25.0" prefWidth="202.0" promptText="confirm password" />
+                        <Button fx:id="createAccountButton" layoutX="62.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="36.0" prefWidth="202.0" text="Create account" textFill="#131313">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                        </Button>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First name" wrappingWidth="78.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="78.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" wrappingWidth="90.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="78.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <ProgressBar fx:id="passwordStrengthBar" layoutX="61.0" layoutY="375.0" prefHeight="6.0" prefWidth="202.0" progress="0.0">
+                     <effect>
+                        <ColorAdjust />
+                     </effect></ProgressBar>
+                  <ProgressBar fx:id="passwordStrengthBarGreen" layoutX="61.0" layoutY="375.0" prefHeight="6.0" prefWidth="202.0" progress="0.0" visible="false">
+                     <effect>
+                        <ColorAdjust hue="0.65" saturation="1.0" />
+                     </effect>
+                  </ProgressBar>
+                  <ProgressBar fx:id="passwordStrengthBarYellow" layoutX="61.0" layoutY="375.0" prefHeight="6.0" prefWidth="101.0" progress="0.0" visible="false">
+                     <effect>
+                        <ColorAdjust hue="0.35" saturation="1.0" />
+                     </effect>
+                  </ProgressBar>
+                  <ProgressBar fx:id="passwordStrengthBarRed" layoutX="61.0" layoutY="375.0" prefHeight="6.0" prefWidth="50.5" progress="0.0" visible="false">
+                     <effect>
+                        <ColorAdjust saturation="1.0" />
+                     </effect>
+                  </ProgressBar>
+                        <Text fill="WHITE" layoutX="62.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm password" wrappingWidth="120.0">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                  <Label layoutX="62.0" layoutY="444.0" text="Profile picture" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="pictureURLTextField" layoutX="62.0" layoutY="464.0" prefHeight="25.0" prefWidth="202.0" promptText="choose your picture" />
+                  <Button fx:id="pictureButton" layoutX="236.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleChoosePicture" prefHeight="20.0" prefWidth="28.0" style="-fx-background-color: white;" text="📎" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <TextField fx:id="usernameTextField" layoutX="62.0" layoutY="236.0" prefHeight="25.0" prefWidth="202.0" promptText="choose username" />
+                  <Text fill="WHITE" layoutX="62.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="firstNameTriangle" fill="#5ea0f7" layoutX="126.0" layoutY="122.0" onMouseEntered="#showFirstNameRestrictions" onMouseExited="#dontShowFirstNameRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="ⓘ" textAlignment="CENTER" wrappingWidth="28.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="lastNameTriangle" fill="#5ea0f7" layoutX="124.0" layoutY="176.0" onMouseEntered="#showLastNameRestrictions" onMouseExited="#dontShowLastNameRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="ⓘ" textAlignment="CENTER" wrappingWidth="28.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="usernameTriangle" fill="#5ea0f7" layoutX="124.0" layoutY="232.0" onMouseEntered="#showUsernameRestrictions" onMouseExited="#dontShowUsernameRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="ⓘ" textAlignment="CENTER" wrappingWidth="28.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="emailTriangle" fill="#5ea0f7" layoutX="143.0" layoutY="285.0" onMouseEntered="#showEmailRestrictions" onMouseExited="#dontShowEmailRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="ⓘ" textAlignment="CENTER" wrappingWidth="28.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="passwordTriangle" fill="RED" layoutX="236.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚠" textAlignment="CENTER" visible="false" wrappingWidth="28.0">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="confirmPasswordTriangle" fill="RED" layoutX="236.0" layoutY="430.0" onMouseEntered="#showConfirmPasswordRestrictions" onMouseExited="#dontShowConfirmPasswordRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="⚠" textAlignment="CENTER" visible="false" wrappingWidth="28.0">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="urlTriangle" fill="#5ea0f7" layoutX="146.0" layoutY="460.0" onMouseEntered="#showUrlRestrictions" onMouseExited="#dontShowUrlRestrictions" strokeType="OUTSIDE" strokeWidth="0.0" text="ⓘ" textAlignment="CENTER" wrappingWidth="28.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="firstNameRestrictions" layoutX="151.0" layoutY="104.0" prefHeight="24.0" prefWidth="175.0" text="Length between 3 and 30 characters" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="usernameRestrictions" layoutX="148.0" layoutY="217.0" prefHeight="20.0" prefWidth="165.0" text="Length between 3 and 50 characters" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailRestrictions" layoutX="166.0" layoutY="264.0" prefHeight="31.0" prefWidth="214.0" text="\@yahoo.com @(s)cs.ubblcuj.ro @gmail.com" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="confirmPasswordRestrictions" layoutX="182.0" layoutY="388.0" prefHeight="20.0" prefWidth="182.0" text="Same as the password entered above" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="urlRestrictions" layoutX="171.0" layoutY="444.0" prefHeight="21.0" prefWidth="175.0" text="Only .jpg .png ang .jpeg files accepted" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lastNameRestrictions" layoutX="148.0" layoutY="162.0" prefHeight="20.0" prefWidth="159.0" text="Length between 3 and 30 characters" textAlignment="CENTER" textFill="WHITE" visible="false" wrapText="true">
+                     <font>
+                        <Font size="9.5" />
+                     </font>
+                  </Label>
+                    </children>
+                </Pane>
+            <Label layoutX="8.0" layoutY="-13.0" prefHeight="64.0" prefWidth="46.0" text="←" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+                  <Button fx:id="backButton" layoutX="6.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="36.0" prefWidth="46.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+                      <cursor>
+                          <Cursor fx:constant="HAND" />
+                      </cursor>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+      <AnchorPane fx:id="forgotPasswordPane" layoutX="10.0" layoutY="10.0" prefHeight="664.0" prefWidth="376.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="logInImage2" fitHeight="668.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../images/logIn.jpg" />
+               </image>
+            </ImageView>
+            <Pane fx:id="secondPane2" layoutX="52.0" layoutY="92.0" prefHeight="483.0" prefWidth="271.0">
+               <children>
+                  <ImageView fitHeight="483.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logInBlur.jpg" />
+                     </image>
+                     <effect>
+                        <Shadow color="#ffffff17" />
+                     </effect>
+                  </ImageView>
+                  <TextField fx:id="forgotPasswordEmailTextField" layoutX="35.0" layoutY="180.0" prefHeight="31.0" prefWidth="202.0" promptText="your email">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
+                  <Label layoutX="35.0" layoutY="159.0" text="Email" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="17.0" layoutY="70.0" text="Anyone forgets" textFill="WHITE">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newPasswordTextField" editable="false" layoutX="35.0" layoutY="257.0" prefHeight="31.0" prefWidth="202.0" promptText="your new password">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextField>
+                  <Label layoutX="35.0" layoutY="236.0" text="Password changed to" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="resetPasswordButton" layoutX="35.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleResetPassword" prefHeight="36.0" prefWidth="202.0" text="Reset password">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Text fx:id="resetPasswordText" fill="RED" layoutX="35.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="202.0000000000001" />
+               </children>
+            </Pane>
+            <Label layoutX="8.0" layoutY="-7.0" prefHeight="64.0" prefWidth="46.0" text="←" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <Button fx:id="backButtonForgotPassword" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleBackForgotPassword" prefHeight="36.0" prefWidth="46.0" style="-fx-background-color: transparent;" textAlignment="CENTER" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

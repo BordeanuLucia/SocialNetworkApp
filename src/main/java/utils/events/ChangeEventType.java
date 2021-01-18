@@ -1,5 +1,5 @@
 package utils.events;
 
 public enum ChangeEventType {
-    ADD,UPDATE,DELETE;
+    ADD,DELETE,UPDATE,ZERO,ONE,TWO
 }

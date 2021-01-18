@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="426.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.UserController">
+<AnchorPane prefHeight="426.0" prefWidth="529.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
     <children>
         <GridPane hgap="5.0" layoutX="50.0" prefHeight="207.0" prefWidth="373.0" vgap="5.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="10.0">
             <columnConstraints>
@@ -26,7 +26,7 @@
                 <Label prefHeight="47.0" prefWidth="187.0" text="Username:" />
                 <Label prefHeight="47.0" prefWidth="187.0" text="Password" GridPane.rowIndex="1" />
 
-                <TextField fx:id="textFieldUsername" prefHeight="46.0" prefWidth="186.0" GridPane.columnIndex="1" />
+                <TextField fx:id="textFieldEmail" prefHeight="46.0" prefWidth="186.0" GridPane.columnIndex="1" />
                 <PasswordField fx:id="textFieldPassword" prefHeight="48.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
             <opaqueInsets>

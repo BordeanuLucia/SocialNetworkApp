@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="240.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.ReportsController">
+<AnchorPane prefHeight="240.0" prefWidth="524.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
    <children>
       <DatePicker fx:id="datePicker2" layoutX="210.0" layoutY="56.0" prefHeight="30.0" prefWidth="178.0" />
       <DatePicker fx:id="datePicker3" layoutX="14.0" layoutY="139.0" prefHeight="30.0" prefWidth="178.0" />

@@ -4,9 +4,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SocialNetwork.controller.FriendshipRequestController">
+<AnchorPane prefHeight="400.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FriendshipRequestController">
    <children>
       <TableView fx:id="tableView1" layoutX="39.0" layoutY="22.0" prefHeight="355.0" prefWidth="331.0">
         <columns>
@@ -15,7 +15,13 @@
             <TableColumn fx:id="tableColumnDate1" minWidth="0.0" prefWidth="118.4000244140625" text="Date" />
         </columns>
       </TableView>
-      <Button fx:id="approveRequestButton" layoutX="443.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleApproveRequest" text="Approve" />
-      <Button fx:id="rejectRequestButton" layoutX="449.0" layoutY="228.0" mnemonicParsing="false" onAction="#handleRejectRequest" text="Reject" />
+      <Button fx:id="approveRequestButton" layoutX="398.0" layoutY="146.0" mnemonicParsing="false" onAction="#handleApproveRequest" prefHeight="38.0" prefWidth="130.0" text="Approve">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Button fx:id="rejectRequestButton" layoutX="394.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleRejectRequest" prefHeight="38.0" prefWidth="130.0" text="Reject">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
    </children>
 </AnchorPane>
