@@ -783,13 +783,11 @@ public class CurrentUserController implements Observer<MessageTaskChangeEvent> {
             Image picture = new Image(input);
             friendProfilePicture.setImage(picture);
         } catch (IOException | SecurityException e) {
-            System.out.println("EROARE LA USER PROFILE PICTURE");
             try {
-                FileInputStream input = new FileInputStream("E:\\MAP\\SocialNetwork\\src\\main\\resources\\images\\defaultUser.jpg");
+                FileInputStream input = new FileInputStream("E:\\Lucia\\UBB\\UBB-SEM-3\\MAP\\Laborator\\SocialNetwork\\src\\main\\resources\\images\\defaultUser.jpg");
                 Image picture = new Image(input);
                 profilePicture.setImage(picture);
             } catch (IOException | SecurityException s) {
-                System.out.println("EROARE");
             }
         }
         friendPagePane.setVisible(true);
